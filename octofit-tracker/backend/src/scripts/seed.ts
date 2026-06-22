@@ -8,7 +8,7 @@ import Leaderboard from '../models/leaderboard';
 async function seed() {
   await connectDB();
 
-  console.log('Seeding database...');
+  console.log('Seed the octofit_db database with test data');
 
   await User.deleteMany({});
   await Team.deleteMany({});
