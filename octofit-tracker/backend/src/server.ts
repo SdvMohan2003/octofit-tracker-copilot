@@ -12,14 +12,20 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT ? Number(process.env.PORT) : 8000;
 
+// Build API base URL for Codespaces or localhost
+const codespaceName = process.env.CODESPACE_NAME;
+const baseUrl = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev`
+  : 'http://localhost:8000';
+
 app.use(express.json());
 
 app.get('/api', (req, res) => {
-  res.json({ status: 'ok', message: 'OctoFit Tracker API is running' });
+  res.json({ status: 'ok', message: 'OctoFit Tracker API is running', baseUrl });
 });
 
 app.get('/api/health', (req, res) => {
-  res.json({ port });
+  res.json({ port, baseUrl, codespaceName: codespaceName || 'not set' });
 });
 
 app.use('/api/users', usersRouter);
@@ -31,6 +37,7 @@ app.use('/api/leaderboard', leaderboardRouter);
 connectDB()
   .then(() => {
     console.log('Connected to MongoDB');
+    console.log(`API base URL: ${baseUrl}`);
     app.listen(port, () => {
       console.log(`Server is running on http://localhost:${port}`);
     });
