@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import App from './App';
 
-function App() {
-  return (
-    <div style={{ fontFamily: 'Arial, sans-serif', padding: '2rem' }}>
-      <h1>OctoFit Tracker</h1>
-      <p>React 19 + Vite frontend scaffold.</p>
-    </div>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+ReactDOM.createRoot(document.getElementById('root')).render(
+	<React.StrictMode>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</React.StrictMode>
+);
